@@ -6,7 +6,7 @@ import { useState } from 'react';
 // 1. 点击Button之后需要调用showModal，需要传入一个参数（key）来唯一识别要调出哪一个request的Detail
 // 2. 点击Approve或者Decline之后，需要对应修改status
 
-const ContentRequests = () => {
+const Requests = () => {
 
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -137,4 +137,4 @@ const ContentRequests = () => {
   );
 };
 
-export default ContentRequests;
+export default Requests;
