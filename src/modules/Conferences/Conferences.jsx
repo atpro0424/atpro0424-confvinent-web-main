@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, Button, Switch , DatePicker, Select} from 'antd';
 
-const ContentConferences = () => {
+const Conferences = () => {
   const onFinish = (values) => {
     console.log('Form submitted with values: ', values);
   };
@@ -96,4 +96,4 @@ const ContentConferences = () => {
   );
 };
 
-export default ContentConferences;
+export default Conferences;

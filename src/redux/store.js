@@ -1,7 +1,8 @@
-import { createStore, applyMiddleware } from 'redux';
-import rootReducer from './rootReducer';
-import thunk from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit';
+import sidebarReducer from '../components/Sidebar/sidebarSlice';
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
-
-export default store;
+export const store = configureStore({
+  reducer: {
+    sidebar: sidebarReducer,
+  }
+});

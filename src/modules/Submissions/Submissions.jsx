@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ContentSubmissions = () => {
+const Submissions = () => {
   return (
     <div>
       <p>This is the content for Submissions.</p>
@@ -8,4 +8,4 @@ const ContentSubmissions = () => {
   );
 };
 
-export default ContentSubmissions;
+export default Submissions;
