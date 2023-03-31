@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from 'antd';
-import './Content.module.scss';
+import './Content.scss';
 
 const AntContent = Layout.Content;
 

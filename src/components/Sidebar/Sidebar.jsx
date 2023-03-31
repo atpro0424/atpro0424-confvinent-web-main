@@ -1,46 +1,64 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-import { toggleSideBar, selectItem, sidebarSelector } from './sidebarSlice';
-import './Sidebar.module.scss';
+import { toggleSideBar, sidebarSelector } from './sidebarSlice';
+import './Sidebar.scss';
 import { HomeOutlined, ScheduleOutlined, FileOutlined, UnorderedListOutlined , SettingOutlined } from '@ant-design/icons';
 
 const { Sider } = Layout;
 
 const menuItems = [
-  {key: '1', title: 'Home', icon: HomeOutlined},
-  {key: '2', title: 'Conferences', icon: ScheduleOutlined},
-  {key: '3', title: 'Requests', icon: FileOutlined},
-  {key: '4', title: 'Submissions', icon: UnorderedListOutlined},
-  {key: '5', title: 'Settings', icon: SettingOutlined}
+  {key: 'home', title: 'Home', icon: HomeOutlined},
+  {key: 'conferences', title: 'Conferences', icon: ScheduleOutlined},
+  {key: 'requests', title: 'Requests', icon: FileOutlined},
+  {key: 'submissions', title: 'Submissions', icon: UnorderedListOutlined},
+  {key: 'settings', title: 'Settings', icon: SettingOutlined}
 ];
 
 
 const Sidebar = () => {
   const dispatch = useDispatch();
-  const { collapsed, selectedItem } = useSelector(sidebarSelector);
-
+  const navigate = useNavigate();
+  const { collapsed } = useSelector(sidebarSelector);
 
   const handleCollapse = (collapsed) => {
     dispatch(toggleSideBar(collapsed));
   };
 
   const handleMenuClick = (item) => {
-    dispatch(selectItem(item.key));
+    navigate(`/main/${item.key}`);
   };
+
+  const getIcon = key => {
+    switch(key) {
+      case 'home':
+        return <HomeOutlined />;
+      case 'conferences':
+        return <ScheduleOutlined />;
+      case 'requests':
+        return <FileOutlined />;
+      case 'submissions':
+        return <UnorderedListOutlined />;
+      case 'settings':
+        return <SettingOutlined />;
+      default:
+        return <HomeOutlined />;
+    }
+  }
 
   return (
     <Sider className="sidebar" collapsible collapsed={collapsed} onCollapse={handleCollapse}>
       <Menu
-          theme="dark"
+          className="sidebar_menu"
           mode="inline"
           onClick={handleMenuClick}
-          selectedKeys={[selectedItem]}
+          defaultSelectedKeys={['home']}
           items={menuItems.map(
             (item) => ({
               key: item.key,
               label: item.title,
-              icon: React.createElement(item.icon),
+              icon: getIcon(item.key),
             }),
           )}
         />

@@ -1,62 +1,82 @@
 import React from 'react';
-import { Layout } from 'antd';
-import { useSelector} from 'react-redux';
-import { keySelector } from './components/Sidebar/sidebarSlice';
+import { Layout, ConfigProvider } from 'antd';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar/Sidebar';
 import Content from './components/Content/Content';
-import Home from './components/Home/Home';
-import Conferences from './components/Conferences/Conferences';
-import Requests from './components/Requests/Requests';
-import Submissions from './components/Submissions/Submissions';
-import Settings from './components/Settings/Settings';
-import './App.module.scss';
+import Home from './modules/Home/Home';
+import Conferences from './modules/Conferences/Conferences';
+import Requests from './modules/Requests/Requests';
+import Submissions from './modules/Submissions/Submissions';
+import Settings from './modules/Settings/Settings';
+import './App.scss';
 const { Header } = Layout;
 
 const App = () => {
-  const { selectedItem } = useSelector(keySelector);
-
-  const renderContent = () => {
+  const renderContent = (selectedItem) => {
     switch (selectedItem) {
-      case '1':
+      case 'home':
         return <Home />;
-      case '2':
+      case 'conference':
         return <Conferences />;
-      case '3':
+      case 'requests':
         return <Requests />;
-      case '4':
+      case 'submissions':
         return <Submissions />;
-      case '5':
+      case 'settings':
         return <Settings />;
       default:
         return <Home />;
     }
   };
 
-  const renderTitle = () => {
+  const renderTitle = (selectedItem) => {
     switch (selectedItem) {
-      case '1':
+      case 'home':
         return "Home";
-      case '2':
+      case 'conference':
         return "Conferences";
-      case '3':
+      case 'requests':
         return "Requests";
-      case '4':
+      case 'submissions':
         return "Submissions";
-      case '5':
+      case 'settings':
         return "Settings";
       default:
         return "Home";
     }
   }
 
-  return (
-    <Layout className="layout">
-      <Sidebar />
+  const content = (selectedItem) => {
+    return (
       <Layout>
-        <Header className="header">{renderTitle()}</Header>
-        <Content>{renderContent()}</Content>
+        <Header className="header">{renderTitle(selectedItem)}</Header>
+        <Content>{renderContent(selectedItem)}</Content>
       </Layout>
-    </Layout>
+    );
+  };
+
+  return (
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#7286D3',
+        },
+      }}
+    >
+      <Layout className="layout">
+        <BrowserRouter>
+          <Sidebar />
+          <Routes>
+            <Route path='/main/home' element={ content('home') } />
+            <Route path='/main/conferences' element={ content('conference') } />
+            <Route path='/main/requests' element={ content('requests') } />
+            <Route path='/main/submissions' element={ content('submissions') } />
+            <Route path='/main/settings' element={ content('settings') } />
+            <Route path='*' element={<Navigate to='/main/home' />} />
+          </Routes>
+        </BrowserRouter>
+      </Layout>
+    </ConfigProvider>
   );
 };
 
