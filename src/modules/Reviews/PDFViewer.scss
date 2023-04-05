@@ -1,0 +1,16 @@
+/* PDFViewer.css */
+.toolbar {
+    margin-bottom: 16px;
+}
+
+.pdf-container {
+    display: flex;
+    place-items: center;
+    width: 100%;
+  }
+
+.pdf-page {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }

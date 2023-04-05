@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import { toggleSideBar, sidebarSelector } from './sidebarSlice';
 import './Sidebar.scss';
-import { HomeOutlined, ScheduleOutlined, FileOutlined, UnorderedListOutlined , SettingOutlined } from '@ant-design/icons';
+import { HomeOutlined, ScheduleOutlined, FileOutlined, UnorderedListOutlined , SettingOutlined , EditOutlined } from '@ant-design/icons';
 
 const { Sider } = Layout;
 
@@ -13,7 +13,8 @@ const menuItems = [
   {key: 'conferences', title: 'Conferences', icon: ScheduleOutlined},
   {key: 'requests', title: 'Requests', icon: FileOutlined},
   {key: 'submissions', title: 'Submissions', icon: UnorderedListOutlined},
-  {key: 'settings', title: 'Settings', icon: SettingOutlined}
+  {key: 'settings', title: 'Settings', icon: SettingOutlined},
+  {key: 'reviews', title: 'Reviews', icon: EditOutlined}
 ];
 
 
@@ -42,6 +43,8 @@ const Sidebar = () => {
         return <UnorderedListOutlined />;
       case 'settings':
         return <SettingOutlined />;
+      case 'reviews':
+        return <EditOutlined />
       default:
         return <HomeOutlined />;
     }
