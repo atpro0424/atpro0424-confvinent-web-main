@@ -8,6 +8,7 @@ import Conferences from './modules/Conferences/Conferences';
 import Requests from './modules/Requests/Requests';
 import Submissions from './modules/Submissions/Submissions';
 import Settings from './modules/Settings/Settings';
+import Superadmin from './modules/Superadmin/Superadmin';
 import './App.scss';
 const { Header } = Layout;
 
@@ -24,6 +25,8 @@ const App = () => {
         return <Submissions />;
       case 'settings':
         return <Settings />;
+      case 'superadmin':
+        return <Superadmin />;
       default:
         return <Home />;
     }
@@ -41,6 +44,8 @@ const App = () => {
         return "Submissions";
       case 'settings':
         return "Settings";
+      case 'superadmin':
+        return 'Super Admin';
       default:
         return "Home";
     }
@@ -72,6 +77,7 @@ const App = () => {
             <Route path='/main/requests' element={ content('requests') } />
             <Route path='/main/submissions' element={ content('submissions') } />
             <Route path='/main/settings' element={ content('settings') } />
+            <Route path='/main/superadmin' element={ content('superadmin') } />
             <Route path='*' element={<Navigate to='/main/home' />} />
           </Routes>
         </BrowserRouter>

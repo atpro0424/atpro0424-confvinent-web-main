@@ -1,23 +1,28 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useHref } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import { toggleSideBar, sidebarSelector } from './sidebarSlice';
 import './Sidebar.scss';
-import { HomeOutlined, ScheduleOutlined, FileOutlined, UnorderedListOutlined , SettingOutlined } from '@ant-design/icons';
+import { HomeOutlined, ScheduleOutlined, FileOutlined, UnorderedListOutlined , SettingOutlined, TeamOutlined } from '@ant-design/icons';
 
 const { Sider } = Layout;
 
 const menuItems = [
-  {key: 'home', title: 'Home', icon: HomeOutlined},
-  {key: 'conferences', title: 'Conferences', icon: ScheduleOutlined},
-  {key: 'requests', title: 'Requests', icon: FileOutlined},
-  {key: 'submissions', title: 'Submissions', icon: UnorderedListOutlined},
-  {key: 'settings', title: 'Settings', icon: SettingOutlined}
+  { key: 'home', title: 'Home', icon: <HomeOutlined /> },
+  { key: 'conferences', title: 'Conferences', icon: <ScheduleOutlined /> },
+  { key: 'requests', title: 'Requests', icon: <FileOutlined /> },
+  { key: 'submissions', title: 'Submissions', icon: <UnorderedListOutlined /> },
+  { key: 'settings', title: 'Settings', icon: <SettingOutlined /> },
+  { key: 'superadmin', title: 'Super Admin', icon: <TeamOutlined /> },
 ];
 
 
 const Sidebar = () => {
+  const href = useHref();
+  const hrefParts = href.split('/');
+  const defaultKey = hrefParts.length > 2 ? hrefParts[2] : 'home';
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { collapsed } = useSelector(sidebarSelector);
@@ -30,35 +35,18 @@ const Sidebar = () => {
     navigate(`/main/${item.key}`);
   };
 
-  const getIcon = key => {
-    switch(key) {
-      case 'home':
-        return <HomeOutlined />;
-      case 'conferences':
-        return <ScheduleOutlined />;
-      case 'requests':
-        return <FileOutlined />;
-      case 'submissions':
-        return <UnorderedListOutlined />;
-      case 'settings':
-        return <SettingOutlined />;
-      default:
-        return <HomeOutlined />;
-    }
-  }
-
   return (
     <Sider className="sidebar" collapsible collapsed={collapsed} onCollapse={handleCollapse}>
       <Menu
           className="sidebar_menu"
           mode="inline"
           onClick={handleMenuClick}
-          defaultSelectedKeys={['home']}
+          defaultSelectedKeys={[defaultKey]}
           items={menuItems.map(
             (item) => ({
               key: item.key,
               label: item.title,
-              icon: getIcon(item.key),
+              icon: item.icon,
             }),
           )}
         />
