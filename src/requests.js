@@ -3,7 +3,10 @@ import ky from "ky";
 const send = async (endpoint, options) => {
   const url = `http://${process.env.REACT_APP_API_DOMAIN}${endpoint}`;
   try {
-    const resp = await ky(url, options);
+    const resp = await ky(url, {
+      credentials: 'include',
+      ...options
+    });
     if (resp.redirected) {
       window.location.href = resp.url;
     }
