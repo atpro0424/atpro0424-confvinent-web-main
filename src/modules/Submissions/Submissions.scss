@@ -1,0 +1,20 @@
+.submissions {
+  &_btn-container {
+    width: 100%;
+    text-align: right;
+    padding-bottom: 16px
+  }
+  &_del-btn {
+    font-size: 20px;
+    margin-top: 6px;
+  }
+  &_author-container {
+    width: 100%;
+    .ant-space-item:first-child {
+      width: 400px;
+    }
+  }
+  &_form {
+    margin-top: 16px;
+  }
+}

@@ -1,0 +1,23 @@
+.review-drawer {
+  &_container {
+    display: flex;
+  }
+  &_info-container {
+    width: 30%;
+    flex-shrink: 1;
+    padding-right: 16px;
+    border-right: 1px #f0f0f0 solid;
+  }
+  &_card {
+    width: 300px;
+  }
+  &_btn {
+    width: 100%;
+    &_safe {
+      background: #52c41a;
+      &:hover {
+        background: #73d13d !important;
+      }
+    }
+  }
+}

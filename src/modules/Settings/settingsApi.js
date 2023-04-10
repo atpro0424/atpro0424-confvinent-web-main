@@ -1,18 +1,9 @@
 import { get, post } from '../../requests';
 
-export const getComittees = async () => {
-  const resp = await get('/api/committee/committees');
-  return resp.data;
-};
-
-export const getCommitteeInfo = async (id) => {
-  const resp = await get(`/api/committee/committeeinfo/${id}`);
+export const getCommitteeInfo = async () => {
+  const resp = await get('/api/committee/committeeinfo');
   return resp.data;
 }
-
-export const addCommittee = async (data) => {
-  await post('/api/committee/addcommittee', data);
-};
 
 export const updateCommitteeName = async (id, data) => {
   await post(`/api/committee/update/${id}`, data);
@@ -37,7 +28,3 @@ export const activateMember = async (id, data) => {
 export const deactivateMember = async (id, data) => {
   await post(`/api/committee/deactivate/${id}`, data);
 };
-
-export const deleteCommittee = async data => {
-  await post('/api/committee/deletecommittee', data);
-}
