@@ -105,7 +105,7 @@ const App = () => {
           <Routes>
             <Route path='/main/home' element={ content('home') } />
             <Route path='/main/conferences' element={ content('conference') } />
-            <Route path='/main/requests' element={ content('requests') } />
+            {/* <Route path='/main/requests' element={ content('requests') } /> */}
             <Route path='/main/submissions' element={ content('submissions') } />
             <Route path='/main/reviews' element={ content('reviews') } />
             <Route path='/main/settings' element={ content('settings') } />

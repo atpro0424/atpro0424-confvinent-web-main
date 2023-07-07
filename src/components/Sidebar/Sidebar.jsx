@@ -20,7 +20,7 @@ const { Sider } = Layout;
 const menuItems = [
   { key: 'home', title: 'Home', icon: <HomeOutlined />, privilegeGroup: ['user', 'member', 'admin', 'superadmin'] },
   { key: 'conferences', title: 'Conferences', icon: <ScheduleOutlined />, privilegeGroup: ['admin'] },
-  { key: 'requests', title: 'Requests', icon: <FileOutlined />, privilegeGroup: ['member', 'admin'] },
+  // { key: 'requests', title: 'Requests', icon: <FileOutlined />, privilegeGroup: ['member', 'admin'] },
   { key: 'reviews', title: 'Reviews', icon: <EditOutlined />, privilegeGroup: ['member', 'admin'] },
   { key: 'submissions', title: 'Submissions', icon: <UnorderedListOutlined />, privilegeGroup: ['user', 'member', 'admin'] },
   { key: 'settings', title: 'Settings', icon: <SettingOutlined />, privilegeGroup: ['admin'] },
