@@ -1,97 +1,99 @@
-import React from 'react';
-import { Form, Input, Button, Switch , DatePicker, Select} from 'antd';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Form, Input, Button, DatePicker, Descriptions } from 'antd';
+import {
+  getCurrentConferenceThunk,
+  createConferenceThunk,
+  conferenceSelector,
+  deleteConferenceThunk,
+} from './conferenceSlice';
 
 const Conferences = () => {
+  const dispatch = useDispatch();
+  const { curConference, loadingCurrentConf, submitting } = useSelector(conferenceSelector);
+
+  useEffect(() => {
+    dispatch(getCurrentConferenceThunk());
+  }, [dispatch]);
+
   const onFinish = (values) => {
-    console.log('Form submitted with values: ', values);
+    dispatch(createConferenceThunk(values));
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+  const deleteCurrentConference = () => {
+    dispatch(deleteConferenceThunk());
   };
 
-  const validateEmail = (email) => {
-    const re = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-    return re.test(email);
-  };
+  if (curConference) {
+    const { name, createTime, endTime, reviewDeadline, submitDeadline, reviewNumberForEachPaper } = curConference;
+
+    return (
+      <div>
+        <Descriptions title={name}>
+          <Descriptions.Item label="Create Time">{createTime}</Descriptions.Item>
+          <Descriptions.Item label="Submit Deadline">{submitDeadline}</Descriptions.Item>
+          <Descriptions.Item label="Review Deadline">{reviewDeadline}</Descriptions.Item>
+          <Descriptions.Item label="End Time">{endTime}</Descriptions.Item>
+          <Descriptions.Item label="Reviewer number of each paper">{reviewNumberForEachPaper}</Descriptions.Item>
+        </Descriptions>
+        <Button onClick={deleteCurrentConference}>Terminate this conference</Button>
+      </div>
+    );
+  }
 
   return (
-      <Form
-      name="basic"
-      labelCol={{span: 8,}}
-      wrapperCol={{span: 16,}}
-      style={{maxWidth: 600,}}
-      initialValues={{ remember: true }}
+    <Form
+      name="conference"
+      labelCol={{span: 8}}
+      wrapperCol={{span: 16}}
+      style={{maxWidth: 600}}
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      >
+    >
       <Form.Item
         label="Conference Name"
-        rules={[{ required: true, message: 'Please input the conference number!' }]}
+        name="name"
+        rules={[{ required: true }]}
       >
         <Input />
       </Form.Item>
 
       <Form.Item 
-        label="Submit Deadline" 
-        rules={[{ required: true }]}>
-          <DatePicker />
-        </Form.Item>
-      
-        <Form.Item 
-        label="Review Deadline" 
-        rules={[{ required: true }]}>
-          <DatePicker />
-        </Form.Item>
-      
-      <Form.Item
-        label="Address"
-        rules={[{ required: true, message: 'Please input your address!' }]}
+        label="Submit Deadline"
+        name="submitDeadline"
+        rules={[{ required: true }]}
       >
-        <Input />
+        <DatePicker showTime />
+      </Form.Item>
+      
+      <Form.Item 
+        label="Review Deadline"
+        name="reviewDeadline"
+        rules={[{ required: true }]}
+      >
+        <DatePicker showTime />
       </Form.Item>
 
-        <Form.Item label="Is Virtual" valuePropName="checked">
-          <Switch />
-        </Form.Item>
+      <Form.Item 
+        label="End Time"
+        name="endTime"
+        rules={[{ required: true }]}
+      >
+        <DatePicker showTime />
+      </Form.Item>
 
       <Form.Item
         label="Reviewers Per Paper"
+        name="reviewNumberForEachPaper"
         rules={[{ required: true, message: 'Please input the number of reviews of each paper!' }]}
       >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="Email List"
-        name="emailList"
-        rules={[
-          {
-            validator(_, value) {
-              if (value.every((email) => validateEmail(email))) {
-                return Promise.resolve();
-              }
-              return Promise.reject(new Error('Please enter valid email addresses!'));
-            },
-          },
-        ]}
-        >
-          <Select
-          mode="tags"
-          style={{ width: '100%' }}
-          placeholder="Enter email addresses and press Enter"
-          tokenSeparators={[';']}/>
+        <Input type="number" />
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={submitting}>
           Submit
         </Button>
       </Form.Item>
-
-      
-      
-
     </Form>
   );
 };

@@ -1,0 +1,15 @@
+.settings {
+  &_title {
+    border-bottom: 1px #f0f0f0 solid;
+    padding-bottom: 16px;
+    font-size: 20px;
+  }
+  &_content {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  &_form {
+    max-width: 400px;
+    width: 100%;
+  }
+}

@@ -12,13 +12,29 @@ const send = async (endpoint, options) => {
     }
     return resp;
   } catch(err) {
-    throw err;
+    const body = await err.response.json();
+
+    if (body) {
+      throw new Error(body.message);
+    } else {
+      throw new Error('Unknown error');
+    }
   }
 };
 
 export const get = async (endpoint) => {
   try {
     const resp = await send(endpoint, { method: 'get' });
+    const respBody = await resp.json();
+    return respBody;
+  } catch(err) {
+    throw err;
+  }
+};
+
+export const head = async (endpoint) => {
+  try {
+    const resp = await send(endpoint, { method: 'head' });
     const respBody = await resp.json();
     return respBody;
   } catch(err) {
